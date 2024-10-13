@@ -3,11 +3,12 @@ import Tasks from "./task";
 import { connectDb } from "~/utils/db.server";
 import Task from "~/models/task";
 import { useLoaderData } from "@remix-run/react";
+import { Header } from "~/components/header";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Formulario" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Mariano Macias" },
+    { name: "description", content: "Welcome a Mi Prueba Tecnica!" },
   ];
 };
 
@@ -39,10 +40,27 @@ export default function Index() {
   let tasks:any = useLoaderData();
   console.log("Tasks cargadas:", tasks); // Log para ver qué se está obteniendo
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-16">
-        <Tasks/>
-      </div>
-    </div>
+    <>
+      <Header/>
+      <main className=" max-w-7xl mx-auto my-20 grid md:grid-cols-2">
+        <div className="p-5">
+          <h2 className="text-4xl font-black">Nueva Tarea</h2>
+          <p>test 1</p>
+        </div>
+        <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
+          {tasks.length ? (
+            <>
+              <div className="space-y-3 mt-10">
+                {tasks.map((item:any)=> (
+                  <Tasks key={item._id} tasks={item}/>
+                ))}
+              </div>
+            </>
+          ) : (
+            <p className='text-center'>La lista de tareas esta vacia</p>
+          )}
+        </div>
+      </main>
+    </>
   );
 }
