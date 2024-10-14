@@ -6,7 +6,7 @@ import { useLoaderData } from "@remix-run/react";
 import TaskForm from "~/components/TaskForm";
 import { Header } from "~/components/Header";
 import { TaskType } from "~/types";
-import Tasks from "./Task";
+import Tasks from "./Tasks";
 
 export const meta: MetaFunction = () => {
   return [
