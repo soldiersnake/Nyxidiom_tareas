@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  
+  publish = "public/build"
+
+  functions = "netlify/functions"
+
+[dev]
+  framework = "remix"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
