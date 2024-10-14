@@ -7,6 +7,7 @@ import TaskForm from "../components/TaskForm";
 import { TaskType } from "../types/index";
 import Tasks from "../components/Tasks";
 import { Header } from "../components/Header";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -30,11 +31,33 @@ export let action: ActionFunction = async ({ request }) => {
   await connectDb();
   const formData = await request.formData();
 
+  // Para eliminar Task, capturamos el metodo DELETE
+  const method = formData.get("_method");
+  const taskId = formData.get("taskId");
+  if (method === "DELETE" && typeof taskId === "string") {
+    await Task.findByIdAndDelete(taskId);
+    return null;
+  }
+
+  // Actualizar tarea
+  if (method === "UPDATE" && typeof taskId === "string") {
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const completed = formData.get("completed") === "on";
+
+    await Task.findByIdAndUpdate(taskId, {
+      title,
+      description,
+      completed,
+    });
+
+    return null;
+  }
+
   // Obtenemos los valores del formulario
   const title = formData.get("title");
   const description = formData.get("description");
   const completed = formData.get("completed") === "on"; // Si está marcado, es true
-
   // Validaciones del formualrio
   if (typeof title === "string") {
     await Task.create({ title, description, completed });
@@ -47,20 +70,27 @@ export default function Index() {
   
   let tasks = useLoaderData<TaskType[]>();
   console.log("Tasks cargadas:", tasks);
+
+  // Función para limpiar el formulario después de enviar
+  const handleFormSubmit = () => {
+    setSelectedTask(null);  // Limpiamos el formulario
+  };
+
+  const [selectedTask, setSelectedTask] = useState<TaskType | null>(null); // Estado para la tarea seleccionada
   return (
     <>
       <Header/>
       <main className=" max-w-7xl mx-auto my-20 grid md:grid-cols-2">
         <div className="p-5">
           <h2 className="text-4xl font-black">Nueva Tarea</h2>
-          <TaskForm/>
+          <TaskForm selectedTask={selectedTask} onSubmit={handleFormSubmit}/>
         </div>
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
           {tasks.length ? (
             <>
               <div className="space-y-3 mt-10">
                 {tasks.map((item:TaskType)=> (
-                  <Tasks key={item._id} tasks={item}/>
+                  <Tasks key={item._id} tasks={item}  onDoubleClick={setSelectedTask}/>
                 ))}
               </div>
             </>
