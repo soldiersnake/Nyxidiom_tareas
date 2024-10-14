@@ -1,5 +1,10 @@
+import { TaskType } from '../types/index';
 
-export default function Tasks({tasks}:any) {
+type TasksProps = {
+  tasks: TaskType;
+}
+
+export default function Tasks({tasks}: TasksProps) {
   
   return (
     <>

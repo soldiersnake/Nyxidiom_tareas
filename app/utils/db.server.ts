@@ -1,7 +1,9 @@
+import dotenv   from "dotenv";
 import mongoose from "mongoose";
+dotenv.config();
 
 let isConnected:boolean = false;
-let urlMongo:string = 'mongodb+srv://marianomacias:1234@prueba-tecnica.el5jm.mongodb.net/'
+let urlMongo:string = process.env.MONGODB_URI || '';
 
 export async function connectDb() {
   if (isConnected) {

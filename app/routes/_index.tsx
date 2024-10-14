@@ -1,9 +1,12 @@
 import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
-import Tasks from "./task";
+
 import { connectDb } from "~/utils/db.server";
 import Task from "~/models/task";
 import { useLoaderData } from "@remix-run/react";
-import { Header } from "~/components/header";
+import TaskForm from "~/components/TaskForm";
+import Tasks from "./Task";
+import { Header } from "~/components/Header";
+import { TaskType } from "~/types";
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,10 +15,10 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export let loader: LoaderFunction = async () => {
+export let loader: LoaderFunction = async (): Promise<TaskType[]> => {
   try {
     await connectDb();
-    const tasks = await Task.find();
+    const tasks: TaskType[] = await Task.find();
     return tasks;
   } catch (error) {
     console.error("Error fetching tasks", error);
@@ -26,10 +29,15 @@ export let loader: LoaderFunction = async () => {
 export let action: ActionFunction = async ({ request }) => {
   await connectDb();
   const formData = await request.formData();
-  const title = formData.get("title");
 
+  // Obtenemos los valores del formulario
+  const title = formData.get("title");
+  const description = formData.get("description");
+  const completed = formData.get("completed") === "on"; // Si está marcado, es true
+
+  // Validaciones del formualrio
   if (typeof title === "string") {
-    await Task.create({ title });
+    await Task.create({ title, description, completed });
   }
 
   return null;
@@ -37,21 +45,21 @@ export let action: ActionFunction = async ({ request }) => {
 
 export default function Index() {
   
-  let tasks:any = useLoaderData();
-  console.log("Tasks cargadas:", tasks); // Log para ver qué se está obteniendo
+  let tasks = useLoaderData<TaskType[]>();
+  console.log("Tasks cargadas:", tasks);
   return (
     <>
       <Header/>
       <main className=" max-w-7xl mx-auto my-20 grid md:grid-cols-2">
         <div className="p-5">
           <h2 className="text-4xl font-black">Nueva Tarea</h2>
-          <p>test 1</p>
+          <TaskForm/>
         </div>
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
           {tasks.length ? (
             <>
               <div className="space-y-3 mt-10">
-                {tasks.map((item:any)=> (
+                {tasks.map((item:TaskType)=> (
                   <Tasks key={item._id} tasks={item}/>
                 ))}
               </div>
