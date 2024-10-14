@@ -8,7 +8,7 @@ type TasksProps = {
   onSubmit: () => void;
 };
 
-export default function TaskForm({ selectedTask, onSubmit  }: TasksProps) {
+export default function TaskForm({ selectedTask, onSubmit }: TasksProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [completed, setCompleted] = useState(false);
@@ -38,7 +38,11 @@ export default function TaskForm({ selectedTask, onSubmit  }: TasksProps) {
 
   return (
     <Form method="post" onSubmit={handleSubmit}>
-      <input type="hidden" name="_method" value={selectedTask ? "UPDATE" : "POST"} />
+      <input
+        type="hidden"
+        name="_method"
+        value={selectedTask ? "UPDATE" : "POST"}
+      />
       <input type="hidden" name="taskId" value={selectedTask?._id} />
 
       <label className="block text-lg font-medium">Título</label>
