@@ -1,6 +1,6 @@
 import type { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 
-import { connectDb } from "~/utils/db.server";
+import { connectDb } from "../utils/db.server";
 import Task from "../models/task";
 import { useLoaderData } from "@remix-run/react";
 import TaskForm from "../components/TaskForm";
