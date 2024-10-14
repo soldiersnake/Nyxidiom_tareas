@@ -4,9 +4,9 @@ import { connectDb } from "~/utils/db.server";
 import Task from "~/models/task";
 import { useLoaderData } from "@remix-run/react";
 import TaskForm from "~/components/TaskForm";
-import Tasks from "./Task";
 import { Header } from "~/components/Header";
 import { TaskType } from "~/types";
+import Tasks from "./Task";
 
 export const meta: MetaFunction = () => {
   return [
