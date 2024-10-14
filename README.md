@@ -80,4 +80,4 @@ Durante el desarrollo, se implementaron las siguientes validaciones y funcionali
 
 ## Comentarios Finales
 
-### Este proyecto cumple con los requisitos solicitados para la prueba técnica, implementando un gestor de tareas funcional, con persistencia de datos, notificaciones visuales y una interfaz amigable e intuitiva.
+#### Este proyecto cumple con los requisitos solicitados para la prueba técnica, implementando un gestor de tareas funcional, con persistencia de datos, notificaciones visuales y una interfaz amigable e intuitiva.
