@@ -10,10 +10,10 @@ import { useLoaderData } from "@remix-run/react";
 import TaskForm from "../components/TaskForm";
 import { TaskType } from "../types/index";
 import Tasks from "../components/Tasks";
-import { Header } from "../components/Header";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Headers from '../components/Headers';
 
 export const meta: MetaFunction = () => {
   return [
@@ -98,7 +98,7 @@ export default function Index() {
 
   return (
     <>
-      <Header /> {/* Componente de cabecera */}
+      <Headers/> {/* Contenedor de Cabecera */}
       <ToastContainer /> {/* Contenedor de notificaciones */}
       <main className=" max-w-7xl mx-auto my-20 grid md:grid-cols-2">
         <div className="p-5">
