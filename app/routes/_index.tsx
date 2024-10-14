@@ -6,7 +6,7 @@ import { useLoaderData } from "@remix-run/react";
 import TaskForm from "../components/TaskForm";
 import { TaskType } from "../types/index";
 import Tasks from "../components/Tasks";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 
 export const meta: MetaFunction = () => {
   return [
@@ -49,7 +49,7 @@ export default function Index() {
   console.log("Tasks cargadas:", tasks);
   return (
     <>
-      <Header/>
+      {/* <Header/> */}
       <main className=" max-w-7xl mx-auto my-20 grid md:grid-cols-2">
         <div className="p-5">
           <h2 className="text-4xl font-black">Nueva Tarea</h2>
