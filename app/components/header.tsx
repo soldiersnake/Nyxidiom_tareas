@@ -1,4 +1,4 @@
-export const Header = () => {
+export default function Header(){
     return (
       <>
         <header className=" bg-teal-400 py-6">
