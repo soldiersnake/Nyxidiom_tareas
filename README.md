@@ -32,7 +32,7 @@ npm install
 Crea un archivo .env en la raíz del proyecto y define la variable de entorno para conectar tu base de datos de MongoDB:
 
 ```sh
-MONGODB_URI=mongodb+srv://<usuario>:<password>@cluster.mongodb.net/<nombre-base-de-datos>
+MONGODB_URI = mongodb+srv://marianomacias:1234@prueba-tecnica.el5jm.mongodb.net/
 ```
 
 ## Ejecuta la aplicación
